@@ -874,6 +874,7 @@
         position: relative;
         overflow: hidden;
         z-index: 1;
+        cursor: pointer;
       }
 
       .zone-card::before {
@@ -1561,10 +1562,7 @@
       <div class="container">
         <div class="about-grid">
           <div class="about-image reveal-left">
-            <img
-              src="sun.jpeg"
-              alt="Notre équipe"
-            />
+            <img src="sun.jpeg" alt="Notre équipe" />
           </div>
           <div class="about-content reveal">
             <span class="section-label" data-i18n="about_tag"
@@ -1940,59 +1938,92 @@
         </div>
 
         <div class="zones-grid">
-          <div class="zone-card fade-in">
+          <div class="zone-card fade-in" onclick="selectRegion('Dakar', 25000)">
             <div class="zone-icon"><i class="fas fa-city"></i></div>
             <h3>Dakar</h3>
           </div>
-          <div class="zone-card fade-in">
+          <div class="zone-card fade-in" onclick="selectRegion('Thiès', 25000)">
             <div class="zone-icon"><i class="fas fa-industry"></i></div>
             <h3>Thiès</h3>
           </div>
-          <div class="zone-card fade-in">
+          <div
+            class="zone-card fade-in"
+            onclick="selectRegion('Saint-Louis', 75000)"
+          >
             <div class="zone-icon"><i class="fas fa-landmark"></i></div>
             <h3>Saint-Louis</h3>
           </div>
-          <div class="zone-card fade-in">
+          <div class="zone-card fade-in" onclick="selectRegion('Louga', 75000)">
             <div class="zone-icon"><i class="fas fa-cow"></i></div>
             <h3>Louga</h3>
           </div>
-          <div class="zone-card fade-in">
+          <div
+            class="zone-card fade-in"
+            onclick="selectRegion('Diourbel', 75000)"
+          >
             <div class="zone-icon"><i class="fas fa-mosque"></i></div>
             <h3>Diourbel</h3>
           </div>
-          <div class="zone-card fade-in">
+          <div
+            class="zone-card fade-in"
+            onclick="selectRegion('Kaolack', 75000)"
+          >
             <div class="zone-icon"><i class="fas fa-seedling"></i></div>
             <h3>Kaolack</h3>
           </div>
-          <div class="zone-card fade-in">
+          <div
+            class="zone-card fade-in"
+            onclick="selectRegion('Fatick', 75000)"
+          >
             <div class="zone-icon"><i class="fas fa-water"></i></div>
             <h3>Fatick</h3>
           </div>
-          <div class="zone-card fade-in">
+          <div
+            class="zone-card fade-in"
+            onclick="selectRegion('Kaffrine', 75000)"
+          >
             <div class="zone-icon"><i class="fas fa-tractor"></i></div>
             <h3>Kaffrine</h3>
           </div>
-          <div class="zone-card fade-in">
+          <div
+            class="zone-card fade-in"
+            onclick="selectRegion('Tambacounda', 150000)"
+          >
             <div class="zone-icon"><i class="fas fa-truck-moving"></i></div>
             <h3>Tambacounda</h3>
           </div>
-          <div class="zone-card fade-in">
+          <div
+            class="zone-card fade-in"
+            onclick="selectRegion('Matam', 150000)"
+          >
             <div class="zone-icon"><i class="fas fa-mountain-sun"></i></div>
             <h3>Matam</h3>
           </div>
-          <div class="zone-card fade-in">
+          <div
+            class="zone-card fade-in"
+            onclick="selectRegion('Kédougou', 150000)"
+          >
             <div class="zone-icon"><i class="fas fa-gem"></i></div>
             <h3>Kédougou</h3>
           </div>
-          <div class="zone-card fade-in">
+          <div
+            class="zone-card fade-in"
+            onclick="selectRegion('Kolda', 150000)"
+          >
             <div class="zone-icon"><i class="fas fa-tree"></i></div>
             <h3>Kolda</h3>
           </div>
-          <div class="zone-card fade-in">
+          <div
+            class="zone-card fade-in"
+            onclick="selectRegion('Sédhiou', 150000)"
+          >
             <div class="zone-icon"><i class="fas fa-fish-fins"></i></div>
             <h3>Sédhiou</h3>
           </div>
-          <div class="zone-card fade-in">
+          <div
+            class="zone-card fade-in"
+            onclick="selectRegion('Ziguinchor', 150000)"
+          >
             <div class="zone-icon"><i class="fas fa-sun-plant-wilt"></i></div>
             <h3>Ziguinchor</h3>
           </div>
@@ -2632,6 +2663,50 @@
       window.addEventListener("scroll", () => {
         header.classList.toggle("scrolled", window.scrollY > 50);
       });
+
+      // ==================== CALCULATOR LOGIC ====================
+      const calcRegion = document.getElementById("calcRegion");
+      const calcWeight = document.getElementById("calcWeight");
+      const calcPriceDisplay = document.getElementById("calcPriceDisplay");
+
+      const updateEstimation = () => {
+        const basePrice = parseInt(calcRegion.value);
+        const weight = parseFloat(calcWeight.value) || 1;
+        // Logique simple : prix de base + (poids supplémentaire * facteur)
+        // Ici on considère que le prix de base couvre la 1ère tonne
+        const total =
+          weight <= 1
+            ? basePrice
+            : basePrice + (weight - 1) * (basePrice * 0.5);
+        calcPriceDisplay.textContent = total.toLocaleString() + " FCFA";
+      };
+
+      [calcRegion, calcWeight].forEach((el) =>
+        el.addEventListener("change", updateEstimation),
+      );
+      calcWeight.addEventListener("input", updateEstimation);
+
+      // ==================== REGION SELECTION LOGIC ====================
+      window.selectRegion = (name, price) => {
+        // 1. Remplir le champ destination du formulaire
+        const destInput = document.getElementById("destination");
+        if (destInput) destInput.value = name;
+
+        // 2. Mettre à jour le calculateur
+        if (calcRegion) {
+          // On cherche l'option qui correspond au nom pour synchroniser le prix
+          Array.from(calcRegion.options).forEach((opt) => {
+            if (opt.text === name) calcRegion.value = opt.value;
+          });
+          updateEstimation();
+        }
+
+        // 3. Scroll fluide vers le formulaire
+        const target = document.getElementById("devis");
+        if (target) {
+          window.scrollTo({ top: target.offsetTop - 100, behavior: "smooth" });
+        }
+      };
 
       // ==================== SCROLL ANIMATIONS ====================
       const observer = new IntersectionObserver(
