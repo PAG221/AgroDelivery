@@ -1,0 +1,2724 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agro Delivery - Logistique Agroalimentaire au Sénégal</title>
+    <!-- Fonts & Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Nunito:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ==================== RESET & BASE ==================== */
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      :root {
+        /* Palette de couleurs */
+        --primary: #1b3022; /* Deep Forest Green */
+        --secondary: #2d5016;
+        --accent: #84bd00; /* Agro Green vibrant */
+        --light-bg: #f8faf7;
+        --light-bg-alpha: rgba(248, 250, 247, 0.8);
+        --gold: #b38e4d; /* Premium Gold */
+        --gold-light: #e5d5b7;
+        --dark: #0d130e;
+        --white: #ffffff;
+        --black: #1a1a1a;
+        --gray: #666666;
+        --gray-light: #a1a1a1;
+        --light-gray: #f5f5f5;
+
+        /* Gradients */
+        --gradient-primary: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--secondary) 100%
+        );
+        --gradient-hero: linear-gradient(
+          135deg,
+          rgba(13, 19, 14, 0.85) 0%,
+          rgba(27, 48, 34, 0.7) 100%
+        );
+
+        /* Shadows */
+        --shadow-soft: 0 12px 40px rgba(0, 0, 0, 0.03);
+        --shadow-premium: 0 24px 48px rgba(27, 48, 34, 0.08);
+
+        /* Spacing */
+        --spacing-xs: 0.5rem;
+        --spacing-sm: 1rem;
+        --spacing-md: 2rem;
+        --spacing-lg: 4rem;
+        --spacing-xl: 6rem;
+      }
+
+      body {
+        font-family: "Nunito", sans-serif;
+        color: var(--dark);
+        line-height: 1.6;
+        overflow-x: hidden;
+        background: var(--light-bg);
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Sora", sans-serif;
+        font-weight: 700;
+        line-height: 1.2;
+        color: var(--primary);
+        letter-spacing: -0.02em;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.3s ease;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      /* ==================== UTILITIES ==================== */
+      .container {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 var(--spacing-md);
+      }
+
+      .container-wide {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 var(--spacing-md);
+      }
+
+      .section-padding {
+        padding: clamp(40px, 8vw, 80px) 0;
+      }
+
+      .btn {
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 1s cubic-bezier(0.165, 0.84, 0.44, 1),
+          transform 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ==================== HEADER / NAVBAR ==================== */
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 2000;
+        background: rgba(248, 250, 247, 0.75);
+        backdrop-filter: blur(24px) saturate(180%);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+      }
+
+      .header.scrolled {
+        padding: 5px 0;
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.2rem var(--spacing-md);
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .logo {
+        font-family: "Sora", sans-serif;
+        font-size: 1.6rem;
+        font-weight: 800;
+        letter-spacing: -1px;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .logo-icon {
+        width: 40px;
+        height: 40px;
+        background: var(--gradient-primary);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--white);
+        font-size: 1.2rem;
+      }
+
+      .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 2.5rem;
+        align-items: center;
+      }
+
+      .nav-menu a {
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: var(--dark);
+        position: relative;
+        transition: 0.3s;
+      }
+
+      .nav-menu a::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--accent);
+        border-radius: 2px;
+        transition: width 0.3s ease;
+      }
+
+      .nav-menu a:hover {
+        color: var(--accent);
+      }
+
+      .nav-menu a:hover::after {
+        width: 25px;
+      }
+
+      .nav-cta {
+        background: var(--primary);
+        color: white !important;
+        padding: 0.8rem 1.8rem;
+        border-radius: 12px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(27, 48, 34, 0.2);
+      }
+
+      .nav-cta::after {
+        display: none;
+      }
+
+      .nav-cta:hover {
+        background: var(--accent);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(132, 189, 0, 0.3);
+      }
+
+      /* ==================== LANGUAGE SWITCHER ==================== */
+      .lang-item {
+        display: flex;
+        align-items: center;
+      }
+
+      .lang-switch {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        padding: 6px 14px;
+        background: rgba(255, 255, 255, 0.5);
+        border: 1px solid var(--gold-light);
+        border-radius: 50px;
+        transition: all 0.3s ease;
+      }
+
+      .lang-switch:hover {
+        border-color: var(--accent);
+        background: var(--white);
+      }
+
+      .lang-btn {
+        background: none;
+        border: none;
+        font-family: "Sora", sans-serif;
+        font-size: 0.75rem;
+        font-weight: 800;
+        color: var(--gray-light);
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .lang-btn.active {
+        color: var(--primary);
+      }
+
+      .lang-btn:hover:not(.active) {
+        color: var(--accent);
+      }
+
+      /* Icon animations for theme toggle */
+      .theme-toggle i {
+        position: absolute;
+        transition:
+          transform 0.5s ease,
+          opacity 0.3s ease;
+      }
+
+      .theme-toggle .fa-sun,
+      body.dark-mode .theme-toggle .fa-moon {
+        opacity: 0;
+        transform: rotate(90deg) scale(0);
+      }
+      body.dark-mode .theme-toggle .fa-sun {
+        opacity: 1;
+        transform: rotate(0) scale(1);
+        color: #ffcc33;
+      }
+
+      .lang-divider {
+        width: 1px;
+        height: 12px;
+        background: var(--gold-light);
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        position: relative;
+        width: 45px;
+        height: 45px;
+        background: var(--white);
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 2100;
+        box-shadow: var(--shadow-soft);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+      }
+
+      .mobile-menu-btn:hover {
+        transform: scale(1.05);
+        background: var(--light-bg);
+      }
+
+      .mobile-menu-btn .burger-icon {
+        position: absolute;
+        width: 20px;
+        height: 14px;
+      }
+
+      .mobile-menu-btn span {
+        position: absolute;
+        left: 0;
+        width: 20px;
+        height: 1.5px;
+        background: var(--primary);
+        border-radius: 2px;
+        transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+      }
+
+      .mobile-menu-btn span:nth-child(1) {
+        top: 0;
+      }
+      .mobile-menu-btn span:nth-child(2) {
+        top: 6px;
+        width: 14px;
+      }
+      .mobile-menu-btn span:nth-child(3) {
+        top: 12px;
+      }
+
+      .mobile-menu-btn.active span:nth-child(1) {
+        transform: translateY(6px) rotate(45deg);
+      }
+      .mobile-menu-btn.active span:nth-child(2) {
+        opacity: 0;
+        transform: translateX(-10px);
+      }
+      .mobile-menu-btn.active span:nth-child(3) {
+        transform: translateY(-6px) rotate(-45deg);
+      }
+
+      .nav-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(13, 19, 14, 0.5);
+        backdrop-filter: blur(12px);
+        z-index: 1999;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+      }
+
+      .nav-overlay.active {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      /* ==================== PRICING & CALCULATOR ==================== */
+      .pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-bottom: 4rem;
+      }
+      .pricing-card {
+        position: relative;
+        background: var(--white);
+        padding: 4rem 2rem 3rem;
+        border-radius: 32px;
+        box-shadow: var(--shadow-soft);
+        text-align: center;
+        border: 1px solid var(--gold-light);
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      .pricing-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--accent);
+        box-shadow: var(--shadow-premium);
+      }
+      .pricing-card.featured {
+        border: 2px solid var(--accent);
+        transform: scale(1.05);
+        z-index: 1;
+      }
+      .pricing-card.featured:hover {
+        transform: translateY(-10px) scale(1.05);
+      }
+      .popular-badge {
+        position: absolute;
+        top: 20px;
+        right: -35px;
+        background: var(--accent);
+        color: var(--primary);
+        font-size: 0.7rem;
+        font-weight: 800;
+        padding: 8px 40px;
+        transform: rotate(45deg);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .pricing-card h3 {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+        color: var(--gray);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .pricing-card .price {
+        font-size: 2.8rem;
+        font-weight: 800;
+        color: var(--primary);
+        margin-bottom: 2.5rem;
+        line-height: 1;
+      }
+      .pricing-card .price span {
+        font-size: 0.85rem;
+        color: var(--accent);
+        font-weight: 700;
+        display: block;
+        margin-top: 5px;
+        text-transform: uppercase;
+      }
+      .pricing-features {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 2.5rem;
+        text-align: left;
+        flex-grow: 1;
+        border-top: 1px solid var(--light-gray);
+        padding-top: 2rem;
+      }
+      .pricing-features li {
+        margin-bottom: 1.2rem;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+      }
+      .pricing-features li i {
+        color: var(--white);
+        background: var(--accent);
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.7rem;
+      }
+
+      .calculator-box {
+        background: linear-gradient(
+          145deg,
+          var(--primary) 0%,
+          var(--black) 100%
+        );
+        color: white;
+        padding: clamp(1.5rem, 5vw, 3.5rem);
+        border-radius: 40px;
+        box-shadow: 0 30px 80px rgba(13, 19, 14, 0.2);
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      .calc-price-display {
+        font-size: clamp(1.8rem, 5vw, 2.5rem);
+        font-weight: 800;
+        color: var(--accent);
+        display: block;
+      }
+
+      /* ==================== HERO SECTION ==================== */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        background:
+          linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
+          url("https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1600&q=80")
+            center/cover fixed;
+        position: relative;
+        padding-top: 70px;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--gradient-hero);
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        color: white;
+        max-width: 700px;
+      }
+
+      .hero-label {
+        display: inline-block;
+        background: var(--accent);
+        padding: 0.5rem 1.5rem;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 1.5rem;
+        color: var(--primary);
+      }
+
+      .hero h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        color: white;
+        margin-bottom: 1.5rem;
+        line-height: 1.1;
+        animation: fadeInUp 0.8s ease;
+        letter-spacing: -2px;
+      }
+
+      .hero-text {
+        font-size: 1.25rem;
+        margin-bottom: 2.5rem;
+        line-height: 1.8;
+        opacity: 0.95;
+        animation: fadeInUp 0.8s ease 0.2s both;
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        animation: fadeInUp 0.8s ease 0.4s both;
+      }
+
+      .btn {
+        padding: 1.1rem 2.5rem;
+        border-radius: 12px;
+        font-weight: 800;
+        font-size: 0.9rem;
+        cursor: pointer;
+        border: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+
+      .btn-primary {
+        background: var(--accent);
+        color: var(--primary);
+        box-shadow: 0 10px 25px rgba(132, 189, 0, 0.3);
+      }
+
+      .btn-primary:hover {
+        background: var(--white);
+        transform: translateY(-5px);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: white;
+        border: 2px solid white;
+        backdrop-filter: blur(5px);
+      }
+
+      .btn-secondary:hover {
+        background: white;
+        color: var(--primary);
+        transform: translateY(-5px);
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ==================== SECTION HEADER ==================== */
+      .section-header {
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto 4rem;
+      }
+
+      .section-label {
+        display: inline-block;
+        color: var(--accent);
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+        margin-bottom: 1rem;
+      }
+
+      .section-header h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .section-header p {
+        font-size: 1.1rem;
+        color: var(--gray);
+      }
+
+      /* ==================== ABOUT SECTION ==================== */
+      .about {
+        background: var(--light-bg);
+      }
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+      }
+
+      .about-image {
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow: var(--shadow-premium);
+        position: relative;
+        transform: rotate(-2deg);
+        transition: 0.5s;
+      }
+      .about-image:hover {
+        transform: rotate(0deg);
+      }
+
+      .about-image img {
+        width: 100%;
+        aspect-ratio: 4/5;
+        max-height: 620px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .about-content h2 {
+        font-size: clamp(2rem, 4vw, 3rem);
+        margin-bottom: 1.5rem;
+        letter-spacing: -1px;
+      }
+
+      .about-text {
+        font-size: 1.1rem;
+        color: var(--gray);
+        margin-bottom: 1.5rem;
+        line-height: 1.8;
+      }
+
+      .vision-box {
+        background: var(--light-bg);
+        padding: 2.5rem;
+        border-radius: 20px;
+        border-left: 6px solid var(--accent);
+        margin-top: 2rem;
+        box-shadow: var(--shadow-soft);
+      }
+
+      .vision-box h3 {
+        color: var(--primary);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 0.75rem;
+        font-size: 1rem;
+      }
+
+      /* ==================== SERVICES SECTION ==================== */
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+      }
+
+      .service-card {
+        background: white;
+        padding: 2.5rem;
+        border-radius: 28px;
+        box-shadow: var(--shadow-soft);
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .service-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: var(--accent);
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+      }
+
+      .service-card:hover {
+        transform: translateY(-15px);
+        box-shadow: var(--shadow-premium);
+        border-color: rgba(132, 189, 0, 0.2);
+      }
+
+      .service-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .service-icon {
+        width: 70px;
+        height: 70px;
+        background: var(--light-bg);
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: var(--primary);
+        margin-bottom: 2rem;
+        transition: all 0.3s ease;
+      }
+
+      .service-card:hover .service-icon {
+        background: var(--primary);
+        color: var(--white);
+        transform: rotate(-10deg);
+      }
+
+      .service-card h3 {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+      }
+
+      .service-card p {
+        color: var(--gray);
+        line-height: 1.8;
+      }
+
+      /* ==================== ADVANTAGES SECTION ==================== */
+      .advantages {
+        background: var(--primary);
+        color: white;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .advantages::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -10%;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1) 0%,
+          transparent 70%
+        );
+        border-radius: 50%;
+      }
+
+      .advantages .section-label {
+        color: var(--gold);
+      }
+
+      .advantages h2,
+      .advantages p {
+        color: white;
+      }
+
+      .advantages-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .advantage-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        padding: 2.5rem;
+        border-radius: 28px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .advantage-item:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateX(10px);
+      }
+
+      .advantage-icon {
+        width: 50px;
+        height: 50px;
+        background: var(--accent);
+        color: var(--primary);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        flex-shrink: 0;
+        font-weight: 900;
+      }
+
+      .advantage-content h4 {
+        color: white;
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
+      }
+
+      .advantage-content p {
+        opacity: 0.9;
+        font-size: 0.95rem;
+      }
+
+      /* ==================== ZONES SECTION ==================== */
+      .zones-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+      }
+
+      .zone-card {
+        background: var(--white);
+        padding: 2.5rem 2rem;
+        border-radius: 24px;
+        box-shadow: var(--shadow-soft);
+        text-align: center;
+        transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        border: 1px solid var(--gold-light);
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .zone-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--gradient-primary);
+        opacity: 0;
+        z-index: -1;
+        transition: opacity 0.4s ease;
+      }
+
+      .zone-card:hover {
+        transform: translateY(-12px) scale(1.03);
+        box-shadow: var(--shadow-premium);
+        border-color: transparent;
+      }
+
+      .zone-card:hover::before {
+        opacity: 1;
+      }
+
+      .zone-card:hover h3,
+      .zone-card:hover .zone-icon {
+        color: var(--white);
+      }
+
+      .zone-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        color: var(--accent);
+        transition: all 0.4s ease;
+      }
+
+      .zone-card h3 {
+        margin-bottom: 0.5rem;
+        transition: color 0.4s ease;
+      }
+
+      .zone-expansion {
+        background: var(--white);
+        padding: 2rem;
+        border-radius: 15px;
+        text-align: center;
+        border: 2px dashed var(--accent);
+      }
+
+      .zone-expansion p {
+        font-size: 1.1rem;
+        color: var(--primary);
+        font-weight: 600;
+      }
+
+      /* ==================== QUOTE FORM SECTION ==================== */
+      .quote-form-section {
+        background: var(--white);
+      }
+
+      .quote-form {
+        max-width: 900px;
+        margin: 0 auto;
+        background: var(--white);
+        padding: clamp(2rem, 6vw, 5rem);
+        border-radius: 30px;
+        box-shadow: var(--shadow-premium);
+      }
+
+      /* Headers de sections dans le formulaire */
+      .form-section-header {
+        grid-column: 1 / -1;
+        margin: 2rem 0 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--gold-light);
+        color: var(--secondary);
+        font-weight: 700;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+      .form-section-header:first-of-type {
+        margin-top: 0;
+      }
+      .form-section-header i {
+        color: var(--accent);
+        font-size: 1.1rem;
+      }
+
+      .input-wrapper {
+        position: relative;
+      }
+      .input-wrapper i {
+        position: absolute;
+        left: 1.1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--gold);
+        font-size: 0.95rem;
+        pointer-events: none;
+        transition: color 0.3s;
+      }
+      .input-wrapper.textarea-wrapper i {
+        top: 1.5rem;
+        transform: none;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .form-group.full-width {
+        grid-column: 1 / -1;
+      }
+
+      .form-group label {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--primary);
+        font-size: 0.95rem;
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        padding: 1.1rem 1.1rem 1.1rem 3rem;
+        border: 2px solid var(--gold-light);
+        border-radius: 10px;
+        font-family: "Nunito", sans-serif;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(111, 168, 60, 0.1);
+      }
+
+      .form-group:focus-within i {
+        color: var(--accent);
+      }
+
+      .form-group textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+
+      .form-submit {
+        background: var(--primary);
+        color: var(--white);
+        padding: 1.2rem 3rem;
+        border: none;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      .form-submit:hover {
+        background: var(--accent);
+        color: var(--primary);
+      }
+
+      .form-submit:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+
+      .form-message {
+        margin-top: 1rem;
+        padding: 1.2rem;
+        border-radius: 10px;
+        text-align: center;
+        font-weight: 600;
+        display: none;
+      }
+
+      .form-message.success {
+        background: var(--accent);
+        color: var(--primary);
+        display: block;
+      }
+
+      .form-message.error {
+        background: #ffe8e8;
+        color: #d32f2f;
+        display: block;
+      }
+
+      /* ==================== CONTACT SECTION ==================== */
+      .contact {
+        background: var(--primary);
+        color: white;
+      }
+
+      .contact .section-label {
+        color: var(--gold);
+      }
+
+      .contact .section-header h2,
+      .contact .section-header p {
+        color: white;
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+      }
+
+      .contact-item {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 3rem 2rem;
+        border-radius: 20px;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .contact-item:hover {
+        background: var(--accent);
+        transform: translateY(-10px);
+        border-color: var(--accent);
+      }
+
+      .contact-item-icon {
+        width: 70px;
+        height: 70px;
+        background: var(--primary);
+        color: var(--accent);
+        border: 2px solid var(--accent);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin: 0 auto 1rem;
+      }
+      .contact-item:hover .contact-item-icon {
+        background: var(--white);
+        border-color: var(--white);
+      }
+
+      .contact-item h3 {
+        color: white;
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .contact-item p,
+      .contact-item a {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1rem;
+      }
+
+      .contact-item a:hover {
+        color: var(--white);
+      }
+
+      /* ==================== CTA SECTION ==================== */
+      .cta-section {
+        background: url("https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?w=1600&q=80")
+          center/cover;
+        position: relative;
+        padding: 120px 0;
+      }
+
+      .cta-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(13, 19, 14, 0.9) 0%,
+          rgba(132, 189, 0, 0.4) 100%
+        );
+      }
+
+      .cta-content {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        color: white;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .cta-content h2 {
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        color: white;
+        margin-bottom: 1.5rem;
+        letter-spacing: -2px;
+      }
+
+      .cta-content p {
+        font-size: 1.25rem;
+        margin-bottom: 2rem;
+        opacity: 0.95;
+      }
+
+      /* ==================== FOOTER ==================== */
+      .footer {
+        background: var(--black);
+        color: white;
+        padding: 3rem 0 1.5rem;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 3rem;
+        margin-bottom: 3rem;
+      }
+
+      .footer-logo {
+        font-family: "Sora", sans-serif;
+        font-size: 1.8rem;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        color: white;
+      }
+
+      .footer-desc {
+        opacity: 0.8;
+        margin-bottom: 1.5rem;
+        line-height: 1.8;
+      }
+
+      .footer h4 {
+        color: white;
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+      }
+
+      .footer-links {
+        list-style: none;
+      }
+
+      .footer-links li {
+        margin-bottom: 0.75rem;
+      }
+
+      .footer-links a {
+        opacity: 0.8;
+        transition: all 0.3s ease;
+      }
+
+      .footer-links a:hover {
+        opacity: 1;
+        color: var(--accent);
+        padding-left: 5px;
+      }
+
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 1.5rem;
+        text-align: center;
+        opacity: 0.7;
+      }
+
+      /* ==================== WHATSAPP BUTTON ==================== */
+      .whatsapp-float {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 65px;
+        height: 65px;
+        background: #25d366;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: white;
+        box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+        z-index: 999;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        animation: pulse 2s infinite;
+      }
+
+      .whatsapp-float:hover {
+        transform: scale(1.1) rotate(10deg);
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+        }
+        50% {
+          box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+        }
+      }
+
+      /* ==================== RESPONSIVE ==================== */
+      @media (max-width: 968px) {
+        .nav-menu {
+          position: fixed;
+          right: -100%;
+          top: 0;
+          height: 100vh;
+          flex-direction: column;
+          background: var(--white);
+          width: 320px;
+          justify-content: flex-start;
+          transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+          box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+          padding: 100px 2rem 2rem;
+          gap: 0;
+          z-index: 2050;
+        }
+
+        .nav-menu li {
+          width: 100%;
+          opacity: 0;
+          transform: translateX(30px);
+          transition: all 0.4s ease;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-menu.active li {
+          opacity: 1;
+          transform: translateX(0);
+        }
+
+        /* Animation en cascade (Stagger) */
+        .nav-menu li:nth-child(1) {
+          transition-delay: 0.1s;
+        }
+        .nav-menu li:nth-child(2) {
+          transition-delay: 0.15s;
+        }
+        .nav-menu li:nth-child(3) {
+          transition-delay: 0.2s;
+        }
+        .nav-menu li:nth-child(4) {
+          transition-delay: 0.25s;
+        }
+        .nav-menu li:nth-child(5) {
+          transition-delay: 0.3s;
+        }
+        .nav-menu li:nth-child(6) {
+          transition-delay: 0.35s;
+        }
+
+        .nav-menu a {
+          display: block;
+          padding: 1.2rem 0;
+          font-size: 1.1rem;
+          width: 100%;
+        }
+
+        .nav-cta {
+          margin-top: 2rem;
+          text-align: center;
+          display: block;
+          border-radius: 12px;
+        }
+
+        .nav-menu.active {
+          right: 0;
+        }
+
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .hero-text {
+          font-size: 1.1rem;
+        }
+
+        .about-grid {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+
+        .section-header h2 {
+          font-size: 2rem;
+        }
+
+        .footer-grid {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .cta-content h2 {
+          font-size: 2rem;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .hero h1 {
+          font-size: 2rem;
+        }
+
+        .hero-buttons {
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .btn {
+          width: 100%;
+          justify-content: center;
+          padding: 1.2rem;
+        }
+
+        .section-padding {
+          padding: var(--spacing-lg) 0;
+        }
+
+        .quote-form {
+          padding: 2rem;
+        }
+
+        .whatsapp-float {
+          bottom: 20px;
+          right: 20px;
+          width: 55px;
+          height: 55px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ==================== HEADER / NAVBAR ==================== -->
+    <!-- SIDE PAGINATION -->
+    <div class="side-nav">
+      <a href="#accueil" class="side-dot active" data-label="Accueil"></a>
+      <a href="#apropos" class="side-dot" data-label="À propos"></a>
+      <a href="#tarification" class="side-dot" data-label="Tarifs"></a>
+      <a href="#services" class="side-dot" data-label="Services"></a>
+      <a href="#zones" class="side-dot" data-label="Zones"></a>
+      <a href="#devis" class="side-dot" data-label="Devis"></a>
+    </div>
+
+    <header class="header reveal" id="header">
+      <nav class="nav-container">
+        <a href="#accueil" class="logo">
+          <div class="logo-icon">🚚</div>
+          Agro Delivery
+        </a>
+
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="#accueil" data-i18n="nav_home">Accueil</a></li>
+          <li><a href="#apropos" data-i18n="nav_about">À propos</a></li>
+          <li><a href="#services" data-i18n="nav_services">Services</a></li>
+          <li><a href="#tarification" data-i18n="nav_pricing">Tarifs</a></li>
+          <li><a href="#zones" data-i18n="nav_zones">Zones</a></li>
+          <li class="lang-item">
+            <div class="lang-switch">
+              <i
+                class="fas fa-globe"
+                style="font-size: 0.8rem; color: var(--gold)"
+              ></i>
+              <button class="lang-btn active" data-lang="fr">FR</button>
+              <div class="lang-divider"></div>
+              <button class="lang-btn" data-lang="en">EN</button>
+            </div>
+          </li>
+          <li>
+            <a href="#devis" class="nav-cta">
+              <span data-i18n="nav_cta">Demander un devis</span>
+              <i
+                class="fas fa-arrow-right"
+                style="font-size: 0.8rem; margin-left: 5px"
+              ></i>
+            </a>
+          </li>
+        </ul>
+
+        <button
+          class="mobile-menu-btn"
+          id="mobileMenuBtn"
+          aria-label="Menu"
+          style="display: flex"
+        >
+          <div class="burger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </button>
+      </nav>
+    </header>
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <style>
+      .calc-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: clamp(1rem, 3vw, 2rem);
+        align-items: flex-end;
+      }
+      .calc-group label {
+        display: block;
+        margin-bottom: 0.8rem;
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: var(--accent);
+      }
+      .calc-group select,
+      .calc-group input {
+        width: 100%;
+        padding: 1.1rem;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.05);
+        color: white;
+        font-family: inherit;
+        outline: none;
+      }
+      .calc-group select option {
+        background: var(--primary);
+      }
+
+      .calc-result {
+        grid-column: 1 / -1;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 2.5rem;
+        border-radius: 15px;
+        text-align: center;
+        margin-top: 2rem;
+      }
+    </style>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="hero" id="accueil">
+      <div class="container">
+        <div class="hero-content">
+          <span class="hero-label" data-i18n="hero_label"
+            >🌾 Logistique Agroalimentaire</span
+          >
+          <h1 data-i18n="hero_title">
+            Agro Delivery — Votre partenaire logistique agroalimentaire au
+            Sénégal
+          </h1>
+          <p class="hero-text" data-i18n="hero_text">
+            Nous accompagnons les entreprises agroalimentaires dans le transport
+            rapide, fiable et sécurisé de leurs matières premières.
+          </p>
+          <div class="hero-buttons">
+            <a href="#devis" class="btn btn-primary">
+              <i class="fas fa-file-invoice"></i>
+              <span data-i18n="btn_quote">Demander un devis</span>
+            </a>
+            <a href="#contact" class="btn btn-secondary">
+              <i class="fas fa-comment"></i>
+              <span data-i18n="btn_contact">Nous contacter</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ABOUT SECTION ==================== -->
+    <section class="about section-padding reveal" id="apropos">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-image reveal-left">
+            <img
+              src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80"
+              alt="Notre équipe"
+            />
+          </div>
+          <div class="about-content reveal">
+            <span class="section-label" data-i18n="about_tag"
+              >QUI SOMMES-NOUS</span
+            >
+            <h2 data-i18n="about_title">Une équipe dédiée à votre réussite</h2>
+            <p class="about-text" data-i18n="about_p1">
+              Agro Delivery est née d'une ambition simple : faciliter
+              l'acheminement des richesses agricoles du Sénégal vers les centres
+              de transformation.
+            </p>
+            <p class="about-text" data-i18n="about_p2">
+              Notre expertise en logistique locale nous permet de naviguer dans
+              les zones les plus reculées tout en garantissant une ponctualité
+              exemplaire.
+            </p>
+            <div class="vision-box">
+              <h3 data-i18n="vision_title">Notre Vision</h3>
+              <p data-i18n="vision_text">
+                Devenir un acteur clé de la logistique agroalimentaire au
+                Sénégal.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TARIFICATION SECTION ==================== -->
+    <section class="tarification section-padding" id="tarification">
+      <div class="container">
+        <div class="section-header fade-in">
+          <span class="section-label" data-i18n="pricing_tag"
+            >TARIFICATION</span
+          >
+          <h2 data-i18n="pricing_title">Des prix transparents</h2>
+          <p data-i18n="pricing_desc">
+            Une structure de prix claire basée sur la distance et le poids, sans
+            frais cachés.
+          </p>
+        </div>
+
+        <div class="pricing-grid">
+          <div class="pricing-card fade-in">
+            <h3 data-i18n="p1_title">Zone Proximité</h3>
+            <div class="price">25 000 <span>FCFA / trajet base</span></div>
+            <ul class="pricing-features">
+              <li>
+                <i class="fas fa-check"></i>
+                <span data-i18n="p1_feat1">Dakar, Thiès</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span data-i18n="p1_feat2">Jusqu'à 1 tonne inclus</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span data-i18n="p1_feat3">Livraison < 3h</span>
+              </li>
+            </ul>
+            <a
+              href="#devis"
+              class="btn btn-secondary"
+              style="
+                border-color: var(--primary);
+                color: var(--primary);
+                padding: 0.8rem;
+              "
+              >Sélectionner</a
+            >
+          </div>
+          <div class="pricing-card featured fade-in">
+            <div class="popular-badge">Populaire</div>
+            <h3 data-i18n="p2_title">Zone Régionale</h3>
+            <div class="price">75 000 <span>FCFA / trajet base</span></div>
+            <ul class="pricing-features">
+              <li>
+                <i class="fas fa-check"></i>
+                <span data-i18n="p2_feat1">Saint-Louis, Kaolack, Louga...</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span data-i18n="p1_feat2">Jusqu'à 1 tonne inclus</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span data-i18n="p2_feat3">Suivi GPS temps réel</span>
+              </li>
+            </ul>
+            <a href="#devis" class="btn btn-primary" style="padding: 0.8rem"
+              >Sélectionner</a
+            >
+          </div>
+          <div class="pricing-card fade-in">
+            <h3 data-i18n="p3_title">Longue Distance</h3>
+            <div class="price">150 000 <span>FCFA / trajet base</span></div>
+            <ul class="pricing-features">
+              <li>
+                <i class="fas fa-check"></i>
+                <span data-i18n="p3_feat1"
+                  >Sud & Est (Ziguinchor, Matam...)</span
+                >
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span data-i18n="p1_feat2">Jusqu'à 1 tonne inclus</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span data-i18n="p3_feat3">Assurance incluse</span>
+              </li>
+            </ul>
+            <a
+              href="#devis"
+              class="btn btn-secondary"
+              style="
+                border-color: var(--primary);
+                color: var(--primary);
+                padding: 0.8rem;
+              "
+              >Sélectionner</a
+            >
+          </div>
+        </div>
+
+        <!-- CALCULATEUR -->
+        <div class="calculator-box fade-in">
+          <div style="text-align: center; margin-bottom: 2.5rem">
+            <h3
+              style="color: white; font-size: 1.8rem; margin-bottom: 0.5rem"
+              data-i18n="calc_title"
+            >
+              Calculateur d'estimation
+            </h3>
+            <p style="opacity: 0.7" data-i18n="calc_desc">
+              Estimez instantanément le coût de votre transport
+            </p>
+          </div>
+
+          <div class="calc-grid">
+            <div class="calc-group">
+              <label data-i18n="calc_label_reg">Région de destination</label>
+              <select id="calcRegion">
+                <optgroup label="Proximité">
+                  <option value="25000">Dakar</option>
+                  <option value="25000">Thiès</option>
+                </optgroup>
+                <optgroup label="Régionale">
+                  <option value="75000">Saint-Louis</option>
+                  <option value="75000">Kaolack</option>
+                  <option value="75000">Louga</option>
+                  <option value="75000">Diourbel</option>
+                  <option value="75000">Fatick</option>
+                  <option value="75000">Kaffrine</option>
+                </optgroup>
+                <optgroup label="Longue Distance">
+                  <option value="150000">Ziguinchor</option>
+                  <option value="150000">Tambacounda</option>
+                  <option value="150000">Matam</option>
+                  <option value="150000">Kolda</option>
+                  <option value="150000">Sédhiou</option>
+                  <option value="150000">Kédougou</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div class="calc-group">
+              <label data-i18n="calc_label_weight">Poids estimé (Tonnes)</label>
+              <input
+                type="number"
+                id="calcWeight"
+                value="1"
+                min="1"
+                step="0.5"
+              />
+            </div>
+          </div>
+
+          <div class="calc-result">
+            <span
+              data-i18n="calc_total_label"
+              style="
+                font-size: 0.9rem;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                margin-bottom: 0.5rem;
+                display: block;
+              "
+              >Estimation totale</span
+            >
+            <span class="calc-price-display" id="calcPriceDisplay"
+              >25 000 FCFA</span
+            >
+            <button
+              type="button"
+              id="copyEstimationBtn"
+              class="btn"
+              style="
+                margin-top: 1rem;
+                padding: 0.6rem 1.2rem;
+                font-size: 0.8rem;
+                background: rgba(132, 189, 0, 0.1);
+                color: var(--accent);
+                border: 1px solid var(--accent);
+                width: auto;
+              "
+            >
+              <i class="fas fa-copy"></i>
+              <span data-i18n="btn_copy"
+                >Copier l'estimation dans le devis</span
+              >
+            </button>
+            <p
+              style="font-size: 0.8rem; margin-top: 1rem; opacity: 0.6"
+              data-i18n="calc_note"
+            >
+              * Cette estimation peut varier selon la nature exacte de la
+              marchandise.
+            </p>
+          </div>
+
+          <div style="text-align: center; margin-top: 2rem">
+            <a href="#devis" class="btn btn-primary" data-i18n="btn_confirm"
+              >Confirmer avec un devis</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SERVICES SECTION ==================== -->
+    <section class="services section-padding" id="services">
+      <div class="container">
+        <div class="section-header fade-in">
+          <span class="section-label" data-i18n="serv_tag">NOS SERVICES</span>
+          <h2 data-i18n="serv_title">Des solutions logistiques complètes</h2>
+          <p data-i18n="serv_desc">
+            Nous offrons une gamme de services adaptés aux besoins spécifiques
+            du secteur agroalimentaire
+          </p>
+        </div>
+
+        <div class="services-grid">
+          <div class="service-card fade-in">
+            <div class="service-icon"><i class="fas fa-truck-moving"></i></div>
+            <h3 data-i18n="s1_title">Transport de matières premières</h3>
+            <p data-i18n="s1_text">
+              Acheminement rapide et sécurisé de vos produits agricoles depuis
+              les zones de production jusqu'à vos unités de transformation.
+            </p>
+          </div>
+          <div class="service-card fade-in">
+            <div class="service-icon"><i class="fas fa-box-open"></i></div>
+            <h3 data-i18n="s2_title">Distribution et livraison</h3>
+            <p data-i18n="s2_text">
+              Service de distribution fiable avec respect des délais et maintien
+              de la qualité de vos produits tout au long du parcours.
+            </p>
+          </div>
+
+          <div class="service-card fade-in">
+            <div class="service-icon">
+              <i class="fas fa-map-marked-alt"></i>
+            </div>
+            <h3 data-i18n="s3_title">Suivi logistique</h3>
+            <p data-i18n="s3_text">
+              Traçabilité complète de vos expéditions avec suivi en temps réel
+              pour une transparence totale sur vos opérations.
+            </p>
+          </div>
+
+          <div class="service-card fade-in">
+            <div class="service-icon"><i class="fas fa-cogs"></i></div>
+            <h3 data-i18n="s4_title">Optimisation des flux</h3>
+            <p data-i18n="s4_text">
+              Analyse et optimisation de vos chaînes logistiques pour réduire
+              les coûts et améliorer l'efficacité de vos opérations.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ADVANTAGES SECTION ==================== -->
+    <section class="advantages section-padding">
+      <div class="container">
+        <div class="section-header fade-in">
+          <span class="section-label" data-i18n="adv_tag">NOS AVANTAGES</span>
+          <h2 data-i18n="adv_title">Pourquoi choisir Agro Delivery ?</h2>
+          <p data-i18n="adv_desc">
+            Des atouts qui font la différence pour votre entreprise
+          </p>
+        </div>
+
+        <div class="advantages-grid">
+          <div class="advantage-item fade-in">
+            <div class="advantage-icon"><i class="fas fa-clock"></i></div>
+            <div class="advantage-content">
+              <h4 data-i18n="a1_title">Fiabilité et respect des délais</h4>
+              <p data-i18n="a1_text">
+                Engagement ferme sur les délais de livraison avec un taux de
+                ponctualité exceptionnel
+              </p>
+            </div>
+          </div>
+          <div class="advantage-item fade-in">
+            <div class="advantage-icon">
+              <i class="fas fa-hand-holding-usd"></i>
+            </div>
+            <div class="advantage-content">
+              <h4 data-i18n="a2_title">Réduction des coûts logistiques</h4>
+              <p data-i18n="a2_text">
+                Optimisation de vos dépenses grâce à nos solutions efficaces et
+                nos tarifs compétitifs
+              </p>
+            </div>
+          </div>
+
+          <div class="advantage-item fade-in">
+            <div class="advantage-icon"><i class="fas fa-sync-alt"></i></div>
+            <div class="advantage-content">
+              <h4 data-i18n="a3_title">Flexibilité des services</h4>
+              <p data-i18n="a3_text">
+                Solutions sur mesure adaptées à vos besoins spécifiques et à
+                votre volume d'activité
+              </p>
+            </div>
+          </div>
+
+          <div class="advantage-item fade-in">
+            <div class="advantage-icon"><i class="fas fa-route"></i></div>
+            <div class="advantage-content">
+              <h4 data-i18n="a4_title">Bonne connaissance du terrain</h4>
+              <p data-i18n="a4_text">
+                Expertise locale approfondie pour naviguer efficacement dans
+                toutes les zones d'intervention
+              </p>
+            </div>
+          </div>
+
+          <div class="advantage-item fade-in">
+            <div class="advantage-icon"><i class="fas fa-seedling"></i></div>
+            <div class="advantage-content">
+              <h4 data-i18n="a5_title">
+                Solutions adaptées aux entreprises agroalimentaires
+              </h4>
+              <p data-i18n="a5_text">
+                Spécialisation sectorielle avec compréhension des enjeux
+                spécifiques de l'agroalimentaire
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ZONES SECTION ==================== -->
+    <section class="zones section-padding" id="zones">
+      <div class="container">
+        <div class="section-header fade-in">
+          <span class="section-label" data-i18n="zones_tag"
+            >Maillage Territorial</span
+          >
+          <h2 data-i18n="zones_title">
+            Une Couverture Nationale Sans Frontières
+          </h2>
+          <p data-i18n="zones_desc">
+            De la zone des Niayes au Bassin Arachidier, nous connectons les 14
+            régions du Sénégal. Notre infrastructure garantit une jonction
+            parfaite entre vos zones de production et vos centres de
+            transformation.
+          </p>
+        </div>
+
+        <div class="zones-grid">
+          <div class="zone-card fade-in">
+            <div class="zone-icon"><i class="fas fa-city"></i></div>
+            <h3>Dakar</h3>
+          </div>
+          <div class="zone-card fade-in">
+            <div class="zone-icon"><i class="fas fa-industry"></i></div>
+            <h3>Thiès</h3>
+          </div>
+          <div class="zone-card fade-in">
+            <div class="zone-icon"><i class="fas fa-landmark"></i></div>
+            <h3>Saint-Louis</h3>
+          </div>
+          <div class="zone-card fade-in">
+            <div class="zone-icon"><i class="fas fa-cow"></i></div>
+            <h3>Louga</h3>
+          </div>
+          <div class="zone-card fade-in">
+            <div class="zone-icon"><i class="fas fa-mosque"></i></div>
+            <h3>Diourbel</h3>
+          </div>
+          <div class="zone-card fade-in">
+            <div class="zone-icon"><i class="fas fa-seedling"></i></div>
+            <h3>Kaolack</h3>
+          </div>
+          <div class="zone-card fade-in">
+            <div class="zone-icon"><i class="fas fa-water"></i></div>
+            <h3>Fatick</h3>
+          </div>
+          <div class="zone-card fade-in">
+            <div class="zone-icon"><i class="fas fa-tractor"></i></div>
+            <h3>Kaffrine</h3>
+          </div>
+          <div class="zone-card fade-in">
+            <div class="zone-icon"><i class="fas fa-truck-moving"></i></div>
+            <h3>Tambacounda</h3>
+          </div>
+          <div class="zone-card fade-in">
+            <div class="zone-icon"><i class="fas fa-mountain-sun"></i></div>
+            <h3>Matam</h3>
+          </div>
+          <div class="zone-card fade-in">
+            <div class="zone-icon"><i class="fas fa-gem"></i></div>
+            <h3>Kédougou</h3>
+          </div>
+          <div class="zone-card fade-in">
+            <div class="zone-icon"><i class="fas fa-tree"></i></div>
+            <h3>Kolda</h3>
+          </div>
+          <div class="zone-card fade-in">
+            <div class="zone-icon"><i class="fas fa-fish-fins"></i></div>
+            <h3>Sédhiou</h3>
+          </div>
+          <div class="zone-card fade-in">
+            <div class="zone-icon"><i class="fas fa-sun-plant-wilt"></i></div>
+            <h3>Ziguinchor</h3>
+          </div>
+        </div>
+
+        <div class="zone-expansion fade-in">
+          <p
+            data-i18n="zones_note"
+            style="
+              color: var(--gray);
+              font-style: italic;
+              border-top: 1px solid var(--gold-light);
+              display: inline-block;
+              padding-top: 1rem;
+            "
+          >
+            📍 Hubs logistiques stratégiques basés à
+            <strong>Dakar, Thiès et Kaolack</strong> pour une réactivité
+            optimale 24/7.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== QUOTE FORM SECTION ==================== -->
+    <section class="quote-form-section section-padding" id="devis">
+      <div class="container">
+        <div class="section-header fade-in">
+          <span class="section-label" data-i18n="quote_tag"
+            >DEMANDE DE DEVIS</span
+          >
+          <h2 data-i18n="quote_title">Obtenez votre devis personnalisé</h2>
+          <p data-i18n="quote_desc">
+            Remplissez le formulaire et recevez une réponse rapide
+          </p>
+        </div>
+
+        <form class="quote-form fade-in" id="quoteForm">
+          <div class="form-grid">
+            <div class="form-section-header">
+              <i class="fas fa-building"></i>
+              <span data-i18n="form_header1"
+                >Informations Entreprise & Contact</span
+              >
+            </div>
+            <div class="form-group">
+              <label for="companyName" data-i18n="label_company"
+                >Nom de l'entreprise *</label
+              >
+              <div class="input-wrapper">
+                <i class="fas fa-industry"></i>
+                <input
+                  type="text"
+                  id="companyName"
+                  name="companyName"
+                  required
+                  data-i18n-placeholder="ph_company"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="fullName" data-i18n="label_name"
+                >Nom complet du contact *</label
+              >
+              <div class="input-wrapper">
+                <i class="fas fa-user"></i>
+                <input
+                  type="text"
+                  id="fullName"
+                  name="fullName"
+                  required
+                  data-i18n-placeholder="ph_name"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="phone" data-i18n="label_phone"
+                >Téléphone / WhatsApp *</label
+              >
+              <div class="input-wrapper">
+                <i class="fas fa-phone"></i>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  required
+                  data-i18n-placeholder="ph_phone"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email" data-i18n="label_email">Email *</label>
+              <div class="input-wrapper">
+                <i class="fas fa-envelope"></i>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  data-i18n-placeholder="ph_email"
+                />
+              </div>
+            </div>
+
+            <div class="form-section-header">
+              <i class="fas fa-truck-loading"></i>
+              <span data-i18n="form_header2">Détails Logistiques</span>
+            </div>
+            <div class="form-group">
+              <label for="productType" data-i18n="label_goods"
+                >Type de marchandise *</label
+              >
+              <div class="input-wrapper">
+                <i class="fas fa-box"></i>
+                <input
+                  type="text"
+                  id="productType"
+                  name="productType"
+                  required
+                  data-i18n-placeholder="ph_goods"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="quantity" data-i18n="label_qty"
+                >Quantité estimée *</label
+              >
+              <div class="input-wrapper">
+                <i class="fas fa-weight-hanging"></i>
+                <input
+                  type="text"
+                  id="quantity"
+                  name="quantity"
+                  required
+                  data-i18n-placeholder="ph_qty"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="departure" data-i18n="label_dep"
+                >Lieu de départ *</label
+              >
+              <div class="input-wrapper">
+                <i class="fas fa-map-marker-alt"></i>
+                <input
+                  type="text"
+                  id="departure"
+                  name="departure"
+                  required
+                  data-i18n-placeholder="ph_dep"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="destination" data-i18n="label_dest"
+                >Lieu de livraison *</label
+              >
+              <div class="input-wrapper">
+                <i class="fas fa-map-check"></i>
+                <input
+                  type="text"
+                  id="destination"
+                  name="destination"
+                  required
+                  data-i18n-placeholder="ph_dest"
+                />
+              </div>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="message" data-i18n="label_msg"
+                >Message ou précisions (optionnel)</label
+              >
+              <div class="input-wrapper textarea-wrapper">
+                <i class="fas fa-comment-alt"></i>
+                <textarea
+                  id="message"
+                  name="message"
+                  data-i18n-placeholder="ph_msg"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="form-submit btn">
+            <i class="fas fa-paper-plane" style="margin-right: 10px"></i>
+            <span data-i18n="btn_send">Envoyer la demande</span>
+          </button>
+
+          <div class="form-message" id="formMessage"></div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ==================== CONTACT SECTION ==================== -->
+    <section class="contact section-padding" id="contact">
+      <div class="container">
+        <div class="section-header fade-in">
+          <span class="section-label" data-i18n="contact_tag">CONTACT</span>
+          <h2 data-i18n="contact_header">Restons en contact</h2>
+          <p data-i18n="contact_sub">
+            Nous sommes à votre écoute pour répondre à toutes vos questions
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-item fade-in">
+            <div class="contact-item-icon">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <h3 data-i18n="contact_phone">Téléphone</h3>
+            <p><a href="tel:+221772636317">+221 77 263 63 17</a></p>
+          </div>
+
+          <div class="contact-item fade-in">
+            <div class="contact-item-icon">
+              <i class="fas fa-envelope-open-text"></i>
+            </div>
+            <h3 data-i18n="contact_email">Email</h3>
+            <p>
+              <a href="mailto:contact@agrodelivery.sn"
+                >contact@agrodelivery.sn</a
+              >
+            </p>
+          </div>
+
+          <div class="contact-item fade-in">
+            <div class="contact-item-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <h3 data-i18n="contact_loc">Localisation</h3>
+            <p>Mbour / Thiès, Sénégal</p>
+          </div>
+
+          <div class="contact-item fade-in">
+            <div class="contact-item-icon"><i class="fab fa-whatsapp"></i></div>
+            <h3 data-i18n="contact_wa">WhatsApp</h3>
+            <p>
+              <a
+                href="https://wa.me/221772636317"
+                target="_blank"
+                data-i18n="contact_wa_btn"
+                >Ouvrir la discussion</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CTA SECTION ==================== -->
+    <section
+      class="cta-section"
+      style="border-top: 1px solid rgba(255, 255, 255, 0.1)"
+    >
+      <div class="container">
+        <div class="cta-content fade-in">
+          <h2 data-i18n="cta_title">
+            Optimisez votre logistique dès aujourd'hui
+          </h2>
+          <p data-i18n="cta_desc">
+            Rejoignez les entreprises qui nous font confiance pour leurs
+            opérations logistiques
+          </p>
+          <a href="#devis" class="btn btn-primary" style="font-size: 1.1rem">
+            <i class="fas fa-rocket"></i>
+            <span data-i18n="nav_cta">Demander un devis</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <div class="footer-logo">Agro Delivery</div>
+            <p class="footer-desc" data-i18n="footer_desc">
+              Votre partenaire de confiance pour la logistique agroalimentaire
+              au Sénégal. Solutions fiables, rapides et adaptées à vos besoins.
+            </p>
+          </div>
+
+          <div>
+            <h4 data-i18n="footer_links">Liens rapides</h4>
+            <ul class="footer-links">
+              <li><a href="#accueil" data-i18n="nav_home">Accueil</a></li>
+              <li><a href="#apropos">À propos</a></li>
+              <li><a href="#services">Services</a></li>
+              <li><a href="#tarification">Tarifs</a></li>
+              <li><a href="#zones">Zones</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 data-i18n="footer_title_contact">Contact</h4>
+            <ul class="footer-links">
+              <li>+221 77 263 63 17</li>
+              <li>contact@agrodelivery.sn</li>
+              <li>Mbour / Thiès, Sénégal</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p data-i18n="footer_copy">
+            &copy; 2024 Agro Delivery. Tous droits réservés.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ==================== WHATSAPP FLOATING BUTTON ==================== -->
+    <a
+      href="https://wa.me/221772636317"
+      target="_blank"
+      class="whatsapp-float"
+      title="Contactez-nous sur WhatsApp"
+    >
+      <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            const offsetTop = target.offsetTop - 70;
+            window.scrollTo({
+              top: offsetTop,
+              behavior: "smooth",
+            });
+          }
+        });
+      });
+
+      // ==================== GLOBAL LANGUAGE ENGINE ====================
+      const translations = {
+        fr: {
+          nav_home: "Accueil",
+          nav_about: "À propos",
+          nav_services: "Services",
+          nav_pricing: "Tarifs",
+          nav_zones: "Zones",
+          nav_cta: "Demander un devis",
+          hero_label: "🌾 Logistique Agroalimentaire",
+          hero_title:
+            "Agro Delivery — Votre partenaire logistique agroalimentaire au Sénégal",
+          hero_text:
+            "Nous accompagnons les entreprises agroalimentaires dans le transport **rapide**, **fiable** et **sécurisé** de leurs matières premières.",
+          btn_quote: "Demander un devis",
+          btn_contact: "Nous contacter",
+          about_tag: "QUI SOMMES-NOUS",
+          about_title: "Une équipe dédiée à votre réussite",
+          about_p1:
+            "Agro Delivery est née d'une ambition simple : **faciliter l'acheminement des richesses agricoles** du Sénégal vers les centres de transformation.",
+          about_p2:
+            "Notre expertise en logistique locale nous permet de naviguer dans les zones les plus reculées tout en garantissant une ponctualité exemplaire.",
+          vision_title: "Notre Vision",
+          vision_text:
+            "Devenir un acteur clé de la logistique agroalimentaire au Sénégal.",
+          pricing_tag: "TARIFICATION",
+          pricing_title: "Des prix transparents",
+          pricing_desc:
+            "Une structure de prix claire basée sur la distance et le poids, sans frais cachés.",
+          p1_title: "Zone Proximité",
+          p1_feat1: "Dakar, Thiès",
+          p1_feat2: "Jusqu'à 1 tonne inclus",
+          p1_feat3: "Livraison < 3h",
+          p2_title: "Zone Régionale",
+          p2_feat1: "Saint-Louis, Kaolack, Louga...",
+          p2_feat3: "Suivi GPS temps réel",
+          p3_title: "Long Distance",
+          p3_feat1: "Sud & Est (Ziguinchor, Matam...)",
+          p3_feat3: "Assurance incluse",
+          calc_title: "Calculateur d'estimation",
+          calc_desc: "Estimez instantanément le coût de votre transport",
+          calc_label_reg: "Région de destination",
+          calc_label_weight: "Poids estimé (Tonnes)",
+          calc_total_label: "Estimation totale",
+          btn_copy: "Copier l'estimation dans le devis",
+          calc_note:
+            "* Cette estimation peut varier selon la nature exacte de la marchandise.",
+          btn_confirm: "Confirmer avec un devis",
+          serv_tag: "NOS SERVICES",
+          serv_title: "Des solutions logistiques complètes",
+          serv_desc:
+            "Nous offrons une gamme de services adaptés aux besoins spécifiques du secteur agroalimentaire",
+          s1_title: "Transport de matières premières",
+          s1_text:
+            "Acheminement rapide et sécurisé de vos produits agricoles depuis les zones de production jusqu'à vos unités de transformation.",
+          s2_title: "Distribution et livraison",
+          s2_text:
+            "Service de distribution fiable avec respect des délais et maintien de la qualité de vos produits tout au long du parcours.",
+          s3_title: "Suivi logistique",
+          s3_text:
+            "Traçabilité complète de vos expéditions avec suivi en temps réel pour une transparence totale sur vos opérations.",
+          s4_title: "Optimisation des flux",
+          s4_text:
+            "Analyse et optimisation de vos chaînes logistiques pour réduire les coûts et améliorer l'efficacité de vos opérations.",
+          adv_tag: "NOS AVANTAGES",
+          adv_title: "Pourquoi choisir Agro Delivery ?",
+          adv_desc: "Des atouts qui font la différence pour votre entreprise",
+          a1_title: "Fiabilité et respect des délais",
+          a1_text:
+            "Engagement ferme sur les délais de livraison avec un taux de ponctualité exceptionnel",
+          a2_title: "Réduction des coûts logistiques",
+          a2_text:
+            "Optimisation de vos dépenses grâce à nos solutions efficaces et nos tarifs compétitifs",
+          a3_title: "Flexibilité des services",
+          a3_text:
+            "Solutions sur mesure adaptées à vos besoins spécifiques et à votre volume d'activité",
+          a4_title: "Bonne connaissance du terrain",
+          a4_text:
+            "Expertise locale approfondie pour naviguer efficacement dans toutes les zones d'intervention",
+          a5_title: "Solutions adaptées aux entreprises agroalimentaires",
+          a5_text:
+            "Spécialisation sectorielle avec compréhension des enjeux spécifiques de l'agroalimentaire",
+          zones_tag: "ZONES D'INTERVENTION",
+          zones_title: "Une Couverture Nationale Sans Frontières",
+          zones_desc:
+            "De la zone des Niayes au Bassin Arachidier, nous connectons les 14 régions du Sénégal. Notre infrastructure garantit une jonction parfaite entre vos zones de production et vos centres de transformation.",
+          zones_note:
+            "📍 Hubs logistiques stratégiques basés à Dakar, Thiès et Kaolack pour une réactivité optimale 24/7.",
+          quote_tag: "DEMANDE DE DEVIS",
+          quote_title: "Obtenez votre devis personnalisé",
+          quote_desc: "Remplissez le formulaire et recevez une réponse rapide",
+          form_header1: "Informations Entreprise & Contact",
+          label_company: "Nom de l'entreprise *",
+          ph_company: "Votre entreprise",
+          label_name: "Nom complet du contact *",
+          ph_name: "Prénom et Nom",
+          label_phone: "Téléphone / WhatsApp *",
+          ph_phone: "+221 ...",
+          label_email: "Email *",
+          ph_email: "contact@email.com",
+          form_header2: "Détails Logistiques",
+          label_goods: "Type de marchandise *",
+          ph_goods: "Ex: Fruits, céréales...",
+          label_qty: "Quantité estimée *",
+          ph_qty: "Ex: 500 kg, 10 tonnes",
+          label_dep: "Lieu de départ *",
+          ph_dep: "Ville ou région de collecte",
+          label_dest: "Lieu de livraison *",
+          ph_dest: "Ville ou région de destination",
+          label_msg: "Message ou précisions (optionnel)",
+          ph_msg:
+            "Détails supplémentaires, fréquence de livraison souhaitée...",
+          btn_send: "Envoyer la demande",
+          msg_success: "✅ Demande prête ! Redirection vers WhatsApp...",
+          msg_error_fields: "❌ Veuillez remplir tous les champs obligatoires.",
+          msg_error_email: "❌ Veuillez entrer une adresse email valide.",
+          msg_redirect_btn: "Redirection en cours...",
+          contact_tag: "CONTACT",
+          contact_header: "Restons en contact",
+          contact_sub:
+            "Nous sommes à votre écoute pour répondre à toutes vos questions",
+          contact_phone: "Téléphone",
+          contact_email: "Email",
+          contact_loc: "Localisation",
+          contact_wa: "WhatsApp",
+          contact_wa_btn: "Ouvrir la discussion",
+          cta_title: "Optimisez votre logistique **dès aujourd'hui**",
+          cta_desc:
+            "Rejoignez les entreprises qui nous font confiance pour leurs opérations logistiques",
+          footer_desc:
+            "Votre partenaire de confiance pour la logistique agroalimentaire au Sénégal. Solutions fiables, rapides et adaptées à vos besoins.",
+          footer_links: "Liens rapides",
+          footer_title_contact: "Contact",
+          footer_copy: "&copy; 2024 Agro Delivery. Tous droits réservés.",
+          wa_greet: "Bonjour Agro Delivery,",
+          wa_wish: "Je souhaite demander un devis :",
+        },
+        en: {
+          nav_home: "Home",
+          nav_about: "About",
+          nav_services: "Services",
+          nav_pricing: "Pricing",
+          nav_zones: "Areas",
+          nav_cta: "Request a quote",
+          hero_label: "🌾 Agri Logistics",
+          hero_title:
+            "Agro Delivery — Your agri-food logistics partner in Senegal",
+          hero_text:
+            "We support agri-food companies in the <strong>fast</strong>, <strong>reliable</strong> and <strong>secure</strong> transport of their raw materials.",
+          btn_quote: "Request a Quote",
+          btn_contact: "Contact Us",
+          about_tag: "WHO ARE WE",
+          about_title: "A team dedicated to your success",
+          about_p1:
+            "Agro Delivery was born from a simple ambition: <strong>to facilitate the transport of agricultural wealth</strong> from Senegal to processing centers.",
+          about_p2:
+            "Our expertise in local logistics allows us to navigate the most remote areas while ensuring exemplary punctuality.",
+          vision_title: "Our Vision",
+          vision_text:
+            "To become a key player in agri-food logistics in Senegal.",
+          pricing_tag: "PRICING",
+          pricing_title: "Transparent Pricing",
+          pricing_desc:
+            "A clear price structure based on distance and weight, with no hidden costs.",
+          p1_title: "Proximity Zone",
+          p1_feat1: "Dakar, Thies",
+          p1_feat2: "Up to 1 ton included",
+          p1_feat3: "Delivery < 3h",
+          p2_title: "Regional Zone",
+          p2_feat1: "Saint-Louis, Kaolack, Louga...",
+          p2_feat3: "Real-time GPS tracking",
+          p3_title: "Long Distance",
+          p3_feat1: "South & East (Ziguinchor, Matam...)",
+          p3_feat3: "Insurance included",
+          calc_title: "Estimation Calculator",
+          calc_desc: "Instantly estimate your transport cost",
+          calc_label_reg: "Destination region",
+          calc_label_weight: "Estimated weight (Tons)",
+          calc_total_label: "Total estimation",
+          btn_copy: "Copy estimation to quote",
+          calc_note:
+            "* This estimation may vary depending on the exact nature of the goods.",
+          btn_confirm: "Confirm with a quote",
+          serv_tag: "OUR SERVICES",
+          serv_title: "Comprehensive Logistics Solutions",
+          serv_desc:
+            "We offer a range of services adapted to the specific needs of the agri-food sector",
+          s1_title: "Raw material transport",
+          s1_text:
+            "Fast and secure transport of your agricultural products from production areas to your processing units.",
+          s2_title: "Distribution and delivery",
+          s2_text:
+            "Reliable distribution service with respect for deadlines and maintaining the quality of your products throughout the journey.",
+          s3_title: "Logistics tracking",
+          s3_text:
+            "Full traceability of your shipments with real-time tracking for total transparency on your operations.",
+          s4_title: "Flow optimization",
+          s4_text:
+            "Analysis and optimization of your logistics chains to reduce costs and improve the efficiency of your operations.",
+          adv_tag: "OUR ADVANTAGES",
+          adv_title: "Why choose Agro Delivery?",
+          adv_desc: "Assets that make the difference for your business",
+          a1_title: "Reliability and respect for deadlines",
+          a1_text:
+            "Firm commitment to delivery times with an exceptional punctuality rate",
+          a2_title: "Logistics cost reduction",
+          a2_text:
+            "Optimization of your expenses thanks to our efficient solutions and our competitive rates",
+          a3_title: "Service flexibility",
+          a3_text:
+            "Tailor-made solutions adapted to your specific needs and your volume of activity",
+          a4_title: "Good knowledge of the terrain",
+          a4_text:
+            "Extensive local expertise to navigate effectively in all intervention areas",
+          a5_title: "Solutions adapted to agri-food companies",
+          a5_text:
+            "Sector specialization with understanding of the specific challenges of agri-food",
+          zones_tag: "INTERVENTION AREAS",
+          zones_title: "National Presence: The 14 Regions",
+          zones_desc:
+            "We serve the entire Senegalese territory for your agri-food needs.",
+          zones_note:
+            "📍 Optimized logistics network throughout the national territory",
+          quote_tag: "QUOTE REQUEST",
+          quote_title: "Get your personalized quote",
+          quote_desc: "Fill in the form and receive a quick response",
+          form_header1: "Company & Contact Information",
+          label_company: "Company Name *",
+          ph_company: "Your company",
+          label_name: "Contact Full Name *",
+          ph_name: "First and Last Name",
+          label_phone: "Phone / WhatsApp *",
+          ph_phone: "+221 ...",
+          label_email: "Email *",
+          ph_email: "contact@email.com",
+          form_header2: "Logistics Details",
+          label_goods: "Type of goods *",
+          ph_goods: "e.g. Fruits, cereals...",
+          label_qty: "Estimated quantity *",
+          ph_qty: "e.g. 500 kg, 10 tons",
+          label_dep: "Departure point *",
+          ph_dep: "City or collection region",
+          label_dest: "Delivery point *",
+          ph_dest: "City or destination region",
+          label_msg: "Message or details (optional)",
+          ph_msg: "Additional details, desired delivery frequency...",
+          btn_send: "Send Request",
+          msg_success: "✅ Request ready! Redirecting to WhatsApp...",
+          msg_error_fields: "❌ Please fill in all required fields.",
+          msg_error_email: "❌ Please enter a valid email address.",
+          msg_redirect_btn: "Redirecting...",
+          contact_tag: "CONTACT",
+          contact_header: "Stay in touch",
+          contact_sub: "We are at your service to answer all your questions",
+          contact_phone: "Phone",
+          contact_email: "Email",
+          contact_loc: "Location",
+          contact_wa: "WhatsApp",
+          contact_wa_btn: "Open discussion",
+          cta_title: "Optimize your logistics <strong>today</strong>",
+          cta_desc:
+            "Join the companies that trust us for their logistics operations",
+          footer_desc:
+            "Your trusted partner for agri-food logistics in Senegal. Reliable, fast solutions adapted to your needs.",
+          footer_links: "Quick links",
+          footer_title_contact: "Contact",
+          footer_copy: "&copy; 2024 Agro Delivery. All rights reserved.",
+          wa_greet: "Hello Agro Delivery,",
+          wa_wish: "I would like to request a quote:",
+        },
+      };
+
+      let currentLang = "fr";
+
+      // ==================== PROFESSIONAL MOBILE MENU ====================
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const navMenu = document.getElementById("navMenu");
+      const navOverlay = document.getElementById("navOverlay");
+
+      const toggleMenu = () => {
+        navMenu.classList.toggle("active");
+        mobileMenuBtn.classList.toggle("active");
+        navOverlay.classList.toggle("active");
+        document.body.style.overflow = navMenu.classList.contains("active")
+          ? "hidden"
+          : "";
+      };
+
+      mobileMenuBtn.addEventListener("click", toggleMenu);
+      navOverlay.addEventListener("click", toggleMenu);
+      document
+        .querySelectorAll(".nav-menu a")
+        .forEach((link) => link.addEventListener("click", toggleMenu));
+
+      // ==================== HEADER SCROLL EFFECT ====================
+      const header = document.getElementById("header");
+      window.addEventListener("scroll", () => {
+        header.classList.toggle("scrolled", window.scrollY > 50);
+      });
+
+      // ==================== SCROLL ANIMATIONS ====================
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
+      );
+
+      document
+        .querySelectorAll(".fade-in")
+        .forEach((el) => observer.observe(el));
+
+      // ==================== FORM VALIDATION & SUBMISSION ====================
+      const quoteForm = document.getElementById("quoteForm");
+      const formMessage = document.getElementById("formMessage");
+
+      quoteForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new FormData(quoteForm);
+        const data = {};
+        formData.forEach((value, key) => (data[key] = value));
+
+        const requiredFields = [
+          "companyName",
+          "fullName",
+          "phone",
+          "email",
+          "productType",
+          "quantity",
+          "departure",
+          "destination",
+        ];
+        if (!requiredFields.every((f) => data[f]?.trim())) {
+          formMessage.className = "form-message error";
+          formMessage.textContent = translations[currentLang].msg_error_fields;
+          formMessage.style.display = "block";
+          return;
+        }
+
+        window.location.href = `https://wa.me/221772636317?text=${encodeURIComponent(translations[currentLang].wa_greet + "\n\n" + translations[currentLang].wa_wish + "\n\n🏢 " + data.companyName + "\n👤 " + data.fullName + "\n📦 " + data.productType + "\n📍 " + data.destination)}`;
+      });
+
+      function updateLanguage(lang) {
+        currentLang = lang;
+        document.documentElement.lang = lang;
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+          const key = el.getAttribute("data-i18n");
+          if (translations[lang][key]) el.innerHTML = translations[lang][key];
+        });
+        document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+          const key = el.getAttribute("data-i18n-placeholder");
+          if (translations[lang][key]) el.placeholder = translations[lang][key];
+        });
+      }
+
+      const langBtns = document.querySelectorAll(".lang-btn");
+      langBtns.forEach((btn) => {
+        btn.addEventListener("click", function () {
+          langBtns.forEach((b) => b.classList.remove("active"));
+          this.classList.add("active");
+          updateLanguage(this.getAttribute("data-lang"));
+        });
+      });
+
+      // ==================== AUTO THEME LOGIC ====================
+      const body = document.body;
+
+      const setTheme = (isDark) => {
+        body.classList.toggle("dark-mode", isDark);
+      };
+
+      // Init theme based on system preference
+      // (Manual override removed, now purely automatic)
+      const savedTheme = localStorage.getItem("theme"); // Keep check for existing users
+      const systemPrefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      ).matches;
+      if (savedTheme === "dark" || (!savedTheme && systemPrefersDark)) {
+        setTheme(true);
+      }
+
+      // Update dynamic year
+      document.querySelector(".footer-bottom p").innerHTML =
+        `&copy; ${new Date().getFullYear()} Agro Delivery. Tous droits réservés. (P.A.G)`;
+    </script>
+  </body>
+</html>
