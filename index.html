@@ -2749,7 +2749,24 @@
           return;
         }
 
-        window.location.href = `https://wa.me/221772636317?text=${encodeURIComponent(translations[currentLang].wa_greet + "\n\n" + translations[currentLang].wa_wish + "\n\n🏢 " + data.companyName + "\n👤 " + data.fullName + "\n📦 " + data.productType + "\n📍 " + data.destination)}`;
+        const t = translations[currentLang];
+        const cleanLabel = (key) => t[key].replace(" *", "");
+
+        let msg = `${t.wa_greet}\n\n${t.wa_wish}\n\n`;
+        msg += `🏢 *${cleanLabel("label_company")}* : ${data.companyName}\n`;
+        msg += `👤 *${cleanLabel("label_name")}* : ${data.fullName}\n`;
+        msg += `📞 *${cleanLabel("label_phone")}* : ${data.phone}\n`;
+        msg += `📧 *${cleanLabel("label_email")}* : ${data.email}\n`;
+        msg += `📦 *${cleanLabel("label_goods")}* : ${data.productType}\n`;
+        msg += `⚖️ *${cleanLabel("label_qty")}* : ${data.quantity}\n`;
+        msg += `🏁 *${cleanLabel("label_dep")}* : ${data.departure}\n`;
+        msg += `📍 *${cleanLabel("label_dest")}* : ${data.destination}`;
+
+        if (data.message && data.message.trim()) {
+          msg += `\n\n💬 *${cleanLabel("label_msg")}* :\n${data.message}`;
+        }
+
+        window.location.href = `https://wa.me/221772636317?text=${encodeURIComponent(msg)}`;
       });
 
       function updateLanguage(lang) {
